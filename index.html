@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SciTex | Cin7 Core ERP Implementation &amp; QuickBooks Online Integration</title>
+<meta name="description" content="SciTex is a Cin7 certified partner and implementer in Riverview, New Brunswick. Cin7 Core ERP implementation, QuickBooks Online integration, and inventory and traceability consulting for food and beverage manufacturers in Atlantic Canada.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f3d56'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-size='16' font-weight='700' fill='%23ffffff' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#14212b;--muted:#4a5a66;--line:#dfe5ea;--bg:#ffffff;--soft:#f4f7f9;
+  --brand:#0f3d56;--accent:#1f7a8c;--accent-dark:#165d6b;
+  --radius:10px;--max:1080px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-dark)}
+a:focus-visible,.btn:focus-visible{outline:3px solid #f2b134;outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.skip{position:absolute;left:-999px;top:0;background:var(--brand);color:#fff;padding:8px 14px;z-index:10}
+.skip:focus{left:12px;top:12px}
+header.site{position:sticky;top:0;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);z-index:5}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.logo{font-weight:700;font-size:1.25rem;letter-spacing:.02em;color:var(--brand);text-decoration:none}
+.logo span{color:var(--accent)}
+nav ul{list-style:none;margin:0;padding:0;display:flex;gap:22px}
+nav a{text-decoration:none;color:var(--muted);font-size:.95rem;font-weight:500}
+nav a:hover{color:var(--brand)}
+.hero{background:linear-gradient(180deg,var(--soft),#fff);padding:96px 0 80px;border-bottom:1px solid var(--line)}
+.badge{display:inline-block;font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-dark);background:#e3f1f4;border:1px solid #c4e2e8;padding:5px 12px;border-radius:999px;margin-bottom:20px}
+h1{font-size:clamp(2rem,4.5vw,3rem);line-height:1.15;margin:0 0 18px;color:var(--brand);max-width:20ch}
+.lead{font-size:1.15rem;color:var(--muted);max-width:60ch;margin:0 0 32px}
+.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;padding:12px 22px;border-radius:8px;border:2px solid var(--accent)}
+.btn:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
+.btn.ghost{background:transparent;color:var(--accent-dark);margin-left:10px}
+.btn.ghost:hover{background:#e3f1f4}
+section{padding:80px 0}
+section.alt{background:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+h2{font-size:clamp(1.5rem,3vw,2rem);margin:0 0 12px;color:var(--brand)}
+.intro{color:var(--muted);max-width:62ch;margin:0 0 40px}
+.grid{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+.card h3{margin:0 0 10px;font-size:1.15rem;color:var(--brand)}
+.card p{margin:0 0 14px;color:var(--muted)}
+.card ul{margin:0;padding-left:18px;color:var(--ink);font-size:.95rem}
+.card li{margin-bottom:6px}
+.icon{width:40px;height:40px;border-radius:8px;background:#e3f1f4;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.icon svg{width:22px;height:22px;stroke:var(--accent-dark);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.two{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.about p{max-width:65ch;color:var(--muted)}
+.contact-box{background:var(--brand);color:#fff;border-radius:var(--radius);padding:48px 40px}
+.contact-box h2{color:#fff}
+.contact-box p{color:#d6e4ec;max-width:56ch}
+.contact-box .btn{background:#fff;color:var(--brand);border-color:#fff}
+.contact-box .btn:hover{background:#e3f1f4;border-color:#e3f1f4}
+.contact-meta{margin-top:22px;font-size:.95rem;color:#d6e4ec}
+.contact-meta a{color:#fff}
+footer{padding:28px 0;border-top:1px solid var(--line);font-size:.9rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+@media (max-width:720px){
+  nav ul{gap:14px}
+  nav li.hide-sm{display:none}
+  .hero{padding:64px 0 56px}
+  section{padding:56px 0}
+  .btn.ghost{margin:12px 0 0}
+  .contact-box{padding:36px 24px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="SciTex home">Sci<span>Tex</span></a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#who">Who we help</a></li>
+        <li class="hide-sm"><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="wrap">
+      <p class="badge">Cin7 certified partner and implementer</p>
+      <h1 id="hero-title">Cin7 Core ERP implementation and QuickBooks Online integration</h1>
+      <p class="lead">SciTex sets up Cin7 Core, connects it to QuickBooks Online, and builds inventory and traceability processes for small food and beverage manufacturers in Atlantic Canada.</p>
+      <a class="btn" href="#contact">Contact us</a>
+      <a class="btn ghost" href="#services">View services</a>
+    </div>
+  </section>
+
+  <section id="services" aria-labelledby="services-title">
+    <div class="wrap">
+      <h2 id="services-title">Services</h2>
+      <p class="intro">Focused work across ERP setup, accounting integration, and inventory control.</p>
+      <div class="grid">
+        <article class="card">
+          <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+          <h3>Cin7 Core ERP implementation</h3>
+          <p>Full lifecycle setup and configuration of Cin7 Core, from planning through go-live.</p>
+          <ul>
+            <li>System setup and configuration</li>
+            <li>Products, locations, and workflows</li>
+            <li>Go-live support</li>
+          </ul>
+        </article>
+        <article class="card">
+          <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 7h10l-3-3M17 17H7l3 3"/></svg></div>
+          <h3>QuickBooks Online integration</h3>
+          <p>Connecting Cin7 Core with QuickBooks Online so inventory and financials stay aligned.</p>
+          <ul>
+            <li>Cin7 Core and QBO connection setup</li>
+            <li>Account and item mapping</li>
+            <li>Inventory and financial data flow</li>
+          </ul>
+        </article>
+        <article class="card">
+          <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></div>
+          <h3>Inventory &amp; traceability consulting</h3>
+          <p>Inventory control and traceability processes for food and beverage manufacturers.</p>
+          <ul>
+            <li>Batch and lot tracking</li>
+            <li>Ingredient-to-finished-goods traceability</li>
+            <li>Stock control processes</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="who" aria-labelledby="who-title">
+    <div class="wrap">
+      <h2 id="who-title">Who we help</h2>
+      <p class="intro">SciTex works with two types of businesses.</p>
+      <div class="two">
+        <div class="card">
+          <h3>Food &amp; beverage manufacturers</h3>
+          <p>Small food and beverage manufacturers in Atlantic Canada that need inventory control and traceability in a proper ERP.</p>
+        </div>
+        <div class="card">
+          <h3>QuickBooks Online inventory users</h3>
+          <p>Businesses managing inventory in QuickBooks Online that need stronger inventory tools connected to their accounting.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about" aria-labelledby="about-title">
+    <div class="wrap">
+      <h2 id="about-title">About SciTex</h2>
+      <p>SciTex is a Cin7 certified partner and implementer based in Riverview, New Brunswick, in the Greater Moncton area of Atlantic Canada.</p>
+      <p>SciTex is co-founded and led by Omar Safwat, Co-CEO, together with his partner.</p>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <div class="contact-box">
+        <h2 id="contact-title">Contact</h2>
+        <p>To discuss a Cin7 Core implementation, a QuickBooks Online integration, or inventory and traceability requirements, contact SciTex by email.</p>
+        <a class="btn" href="mailto:omar@scitex.ltd">Email omar@scitex.ltd</a>
+        <p class="contact-meta">Riverview, New Brunswick, Canada &middot; <a href="mailto:omar@scitex.ltd">omar@scitex.ltd</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; SciTex. Riverview, New Brunswick, Canada.</span>
+    <span>Cin7 certified partner and implementer</span>
+  </div>
+</footer>
+</body>
+</html>
